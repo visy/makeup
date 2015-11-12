@@ -17,6 +17,7 @@
  * under the License.
  */
 var app = {
+
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -55,18 +56,43 @@ var app = {
         console.log('scanning');
         
         cordova.plugins.barcodeScanner.scan( function (result) { 
-
+/*
             alert("We got a barcode\n" + 
             "Result: " + result.text + "\n" + 
             "Format: " + result.format + "\n" + 
             "Cancelled: " + result.cancelled);  
+*/
+            var barcode = result.text;
 
-           console.log("Scanner result: \n" +
+            var productAPIPrefix = "https://api.outpan.com/v2/products/";
+            var productAPIPostfix = "?apikey=523f41e6c53e340ff9a047aeb3b28b05";
+
+            var productAPIURL = productAPIPrefix + barcode + productAPIPostfix;
+
+            console.log("Scanner result: \n" +
                 "text: " + result.text + "\n" +
                 "format: " + result.format + "\n" +
                 "cancelled: " + result.cancelled + "\n");
+
+            var request = new XMLHttpRequest();
+            request.open("GET", productAPIURL, true);
+            request.onreadystatechange = function() {
+                if (request.readyState == 4) {
+                    if (request.status == 200 || request.status == 0) {
+                        // -> request.responseText <- is a result
+                        var node=document.createElement("LI");
+                        var textnode=document.createTextNode(request.responseText);
+                        node.appendChild(textnode);
+                        document.getElementById("products").appendChild(node);
+                    }
+                }
+            }
+            request.send();
+  
             document.getElementById("info").innerHTML = result.text;
+  
             console.log(result);
+  
             /*
             if (args.format == "QR_CODE") {
                 window.plugins.childBrowser.showWebPage(args.text, { showLocationBar: false });
