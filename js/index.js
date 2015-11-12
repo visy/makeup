@@ -69,11 +69,6 @@ var app = {
 
             var productAPIURL = productAPIPrefix + barcode + productAPIPostfix;
 
-            console.log("Scanner result: \n" +
-                "text: " + result.text + "\n" +
-                "format: " + result.format + "\n" +
-                "cancelled: " + result.cancelled + "\n");
-
             var request = new XMLHttpRequest();
             request.open("GET", productAPIURL, true);
             request.onreadystatechange = function() {
