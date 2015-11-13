@@ -58,12 +58,14 @@ var app = {
         cordova.plugins.barcodeScanner.scan( function (result) { 
             var barcode = result.text;
 
-            var productAPIPrefix = "https://api.outpan.com/v2/products/";
-            var productAPIPostfix = "?apikey=523f41e6c53e340ff9a047aeb3b28b05";
 
-            var productAPIURL = productAPIPrefix + barcode + productAPIPostfix;
+            var productAPIPrefix = "https://api.semantics3.com/test/v1/products"
+
+            var productAPIURL = productAPIPrefix;
 
             var request = new XMLHttpRequest();
+            request.setRequestHeader("api_key", "SEM345BBF6DBA0A990933977CC7B6374A9D4");
+
             request.open("GET", productAPIURL, true);
             request.onreadystatechange = function() {
                 if (request.readyState == 4) {
@@ -71,7 +73,7 @@ var app = {
 
                         var json = JSON.parse(request.responseText);
 
-                        var productText = json.name + " / " + json.attributes.Manufacturer;
+                        var productText = results[0].name;
 
                         var node=document.createElement("LI");
                         var textnode=document.createTextNode(productText);
@@ -80,7 +82,16 @@ var app = {
                     }
                 }
             }
-            request.send();
+
+            request.send(JSON.stringify(
+                {
+                  "upc": barcode,
+                  "fields": [
+                    "name",
+                    "gtins"
+                  ]
+                }
+            ));
   
             document.getElementById("info").innerHTML = result.text;
   
