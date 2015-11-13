@@ -64,9 +64,10 @@ var app = {
             var productAPIURL = productAPIPrefix;
 
             var request = new XMLHttpRequest();
-            request.setRequestHeader("api_key", "SEM345BBF6DBA0A990933977CC7B6374A9D4");
 
             request.open("GET", productAPIURL, true);
+            request.setRequestHeader("api_key", "SEM345BBF6DBA0A990933977CC7B6374A9D4");
+
             request.onreadystatechange = function() {
                 if (request.readyState == 4) {
                     if (request.status == 200 || request.status == 0) {
