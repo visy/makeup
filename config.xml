@@ -13,8 +13,7 @@
         PhoneGap Team
     </author>
 
-    <access origin="https://www.outpan.com" />
-
+    <access origin="https://api.outpan.com" />
 
 <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.2.0" />
 
