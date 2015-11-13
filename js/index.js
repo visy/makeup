@@ -59,9 +59,17 @@ var app = {
             var barcode = result.text;
 
 
-            var productAPIPrefix = "https://api.semantics3.com/test/v1/products"
+            var productAPIPrefix = "https://api.semantics3.com/test/v1/products?q=";
 
-            var productAPIURL = productAPIPrefix;
+            var productAPIURL = productAPIPrefix + encodeURIComponent(JSON.stringify(
+                {
+                  "upc": barcode,
+                  "fields": [
+                    "name",
+                    "gtins"
+                  ]
+                }
+            ));
 
             var request = new XMLHttpRequest();
 
@@ -84,15 +92,7 @@ var app = {
                 }
             }
 
-            request.send(JSON.stringify(
-                {
-                  "upc": barcode,
-                  "fields": [
-                    "name",
-                    "gtins"
-                  ]
-                }
-            ));
+            request.send();
   
             document.getElementById("info").innerHTML = result.text;
   
