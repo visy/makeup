@@ -82,7 +82,7 @@ var app = {
 
                         var json = JSON.parse(request.responseText);
 
-                        var productText = results[0].name;
+                        var productText = json.results[0].name;
 
                         var node=document.createElement("LI");
                         var textnode=document.createTextNode(productText);
