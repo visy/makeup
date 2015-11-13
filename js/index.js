@@ -56,18 +56,14 @@ var app = {
         console.log('scanning');
         
         cordova.plugins.barcodeScanner.scan( function (result) { 
-/*
-            alert("We got a barcode\n" + 
-            "Result: " + result.text + "\n" + 
-            "Format: " + result.format + "\n" + 
-            "Cancelled: " + result.cancelled);  
-*/
             var barcode = result.text;
 
             var productAPIPrefix = "https://api.outpan.com/v2/products/";
             var productAPIPostfix = "?apikey=523f41e6c53e340ff9a047aeb3b28b05";
 
             var productAPIURL = productAPIPrefix + barcode + productAPIPostfix;
+
+            alert(productAPIURL);
 
             var request = new XMLHttpRequest();
             request.open("GET", productAPIURL, true);
@@ -85,8 +81,6 @@ var app = {
                         var textnode=document.createTextNode(productText);
                         node.appendChild(textnode);
                         document.getElementById("products").appendChild(node);
-
-                        // -> request.responseText <- is a result
                     }
                 }
             }
