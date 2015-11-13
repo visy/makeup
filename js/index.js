@@ -68,20 +68,16 @@ var app = {
             var request = new XMLHttpRequest();
             request.open("GET", productAPIURL, true);
             request.onreadystatechange = function() {
-                if (request.readyState == 4) {
-                    if (request.status == 200 || request.status == 0) {
+                if (request.status == 200 || request.status == 0) {
 
-                        var json = JSON.parse(request.responseText);
+                    var json = JSON.parse(request.responseText);
 
-                        alert(json);
+                    var productText = json.name + " / " + json.attributes.Manufacturer;
 
-                        var productText = json.name + " / " + json.attributes.Manufacturer;
-
-                        var node=document.createElement("LI");
-                        var textnode=document.createTextNode(productText);
-                        node.appendChild(textnode);
-                        document.getElementById("products").appendChild(node);
-                    }
+                    var node=document.createElement("li");
+                    var textnode=document.createTextNode(productText);
+                    node.appendChild(textnode);
+                    document.getElementById("products").appendChild(node);
                 }
             }
             request.send();

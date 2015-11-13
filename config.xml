@@ -13,6 +13,9 @@
         PhoneGap Team
     </author>
 
+    <access origin="https://www.outpan.com" />
+
+
 <gap:plugin name="com.phonegap.plugins.barcodescanner" version="2.2.0" />
 
     <feature name="http://api.phonegap.com/1.0/device" />
